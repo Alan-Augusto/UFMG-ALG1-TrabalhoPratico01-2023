@@ -23,9 +23,9 @@ Cada uma das próximas A linhas descreve uma estrada entre duas cidades, represe
 
 ## Execução do programa
 O programa pode ser executado através do arquivo main.cpp. Para executar o programa, basta abrir o terminal na pasta onde se encontra o arquivo main.py e digitar o comando abaixo:
-'''c++
+~~~c++
 main.cpp input.txt output.txt
-'''
+~~~
 
 Onde input.txt é o arquivo com os casos de teste de entrada e output.txt é o arquivo onde serão salvos os resultados.
 
