@@ -21,6 +21,7 @@ class Grafo {
         Grafo(int V);
 
         void adicionar_aresta(int u, int v, int peso);
+        void print();
 
         vector<int> dijkstra(int origem);
 };

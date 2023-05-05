@@ -11,6 +11,18 @@ void Grafo::adicionar_aresta(int u, int v, int peso) {
     adj[v].push_back(make_pair(u, peso));
 }
 
+
+void Grafo::print(){
+    for(int i = 0; i < V/2; i++){
+        cout << "Vértice " << i << endl;
+        for(int j = 0; j < adj[i].size(); j++){
+            cout << adj[i][j].first << " " << adj[i][j].second << " ";
+            cout << endl;
+        }
+        cout << endl;
+    }
+}
+
 vector<int> Grafo::dijkstra(int origem) {
     vector<int> dist(V, INF); //inicializa todas as distâncias com infinito
     dist[origem] = 0; //a distância da origem para ela mesma é 0
