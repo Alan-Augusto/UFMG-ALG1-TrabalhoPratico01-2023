@@ -1,41 +1,55 @@
-# Compilador a ser utilizado
-CC=g++
+# Makefile
 
-# Flags de compilação
-CFLAGS=-c -Wall
+# Compiler options
+CXX = g++
+CXXFLAGS = -std=c++11 -Wall
 
-# Diretório onde os arquivos objeto serão gerados
-OBJ_DIR=./obj
+# Source files
+SRCS := $(wildcard *.cpp)
 
-# Diretório onde os arquivos executáveis serão gerados
-BIN_DIR=./bin
+# Object files
+OBJS := $(SRCS:.cpp=.o)
 
-# Nome do arquivo executável a ser gerado
-EXECUTABLE=$(BIN_DIR)/programa
+# Target executable
+TARGET := tp01
 
-# Lista de arquivos fonte a serem compilados
-SOURCES=./src/main.cpp
+run:
+	./tp01
 
-# Lista de arquivos objeto gerados a partir dos arquivos fonte
-OBJECTS=$(SOURCES:./src/%.cpp=$(OBJ_DIR)/%.o)
+all: $(TARGET)
 
-# Comando para compilar os arquivos objeto
-$(OBJ_DIR)/%.o: ./src/%.cpp
-	$(CC) $(CFLAGS) $< -o $@
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
-# Comando para gerar o arquivo executável
-$(EXECUTABLE): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(EXECUTABLE)
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Comando para limpar os arquivos objeto e executável gerados
 clean:
-	rm -f $(OBJECTS) $(EXECUTABLE)
+	rm -f $(OBJS) $(TARGET)
 
-# Comando para compilar e executar o programa
-run: $(EXECUTABLE)
-	$(EXECUTABLE)
+test_cases_dir := test_cases
 
-# Comando padrão, que compila o programa
-all: $(EXECUTABLE)
-
-.PHONY: clean run all
+eval: all
+	@echo "Running tests..."
+	@passed=0; failed=0; \
+	failures=""; \
+	for input_file in $(test_cases_dir)/inputs/*; do \
+		output_file="$(test_cases_dir)/outputs/$$(basename $$input_file .txt).sol"; \
+		if ! ./$(TARGET) < "$$input_file" | diff -q - "$$output_file" > /dev/null; then \
+			echo "Test case $$input_file failed"; \
+			failures="$$failures $$input_file"; \
+			failed=$$((failed + 1)); \
+		else \
+			passed=$$((passed + 1)); \
+		fi; \
+	done; \
+	echo "Passed: $$passed"; \
+	echo "Failed: $$failed"; \
+	if [ $$failed -ne 0 ]; then \
+		echo "Failed tests:"; \
+		for f in $$failures; do \
+			echo $$f; \
+		done; \
+	else \
+		echo "Congratulations! All tests passed."; \
+	fi

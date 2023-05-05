@@ -12,7 +12,7 @@ Steve deseja criar um algoritmo para planejar melhor suas viagens. No entanto, d
 1. Steve só viaja entre duas cidades adjacentes se a estrada que conecta as duas cidades tiver comprimento par;
 2. O caminho traçado pelo algoritmo deve passar por um número par de estradas.
 
-##Modelagem do problema
+## Modelagem do problema
 Este trabalho prático aborda a parte de grafos da ementa desta disciplina. Para a resolução do problema a sua modelagem precisa usar grafos e deve ser descrita sucintamente no relatório apresentado.
 
 ## Formato da entrada esperada
