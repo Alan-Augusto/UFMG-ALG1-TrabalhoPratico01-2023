@@ -26,6 +26,7 @@ $(TARGET): $(OBJS)
 
 clean:
 	rm -f $(OBJS) $(TARGET)
+	clear
 
 test_cases_dir := test_cases
 
