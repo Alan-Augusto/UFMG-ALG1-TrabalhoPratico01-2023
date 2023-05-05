@@ -33,11 +33,11 @@ void Assert(bool x, string text){
 int main(int argc, char  **argv) {
     
     //Recolhe endereço do arquivo e confere os argumentos:
-    char *inputNameArq = checkLineArguments(argc, argv, 1);
+    //char *inputNameArq = checkLineArguments(argc, argv, 1);
     
     //Variaveis principais
-    ifstream InputFile(inputNameArq);
-    Assert(InputFile.is_open(), "Opening error in input file");
+    //ifstream InputFile(inputNameArq);
+    //Assert(InputFile.is_open(), "Opening error in input file");
 
 
     Grafo grafo(5); // cria um grafo com 5 vértices

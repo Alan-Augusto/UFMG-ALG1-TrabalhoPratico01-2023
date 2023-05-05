@@ -8,7 +8,7 @@
 
 using namespace std;
 
-const int INF = numeric_limits<int>::max(); // constante para representar infinito
+#define INF 0x3f3f3f3f
 
 class Grafo {
     private:
