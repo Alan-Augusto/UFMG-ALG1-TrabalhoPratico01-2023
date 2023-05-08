@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
     cin >> NumCidades;
     cin >> NumEstradas;
     
-    Grafo G = Grafo(2*NumCidades);
+    Grafo G = Grafo(2*NumCidades+1);
 
     //cout << NumCidades << " e " << NumEstradas << endl;
 
@@ -49,9 +49,9 @@ int main(int argc, char** argv) {
 
         if((distancia %2) == 0){ //Adiciona somente as arestas pares
             //Nós do Tipo A se ligam à Nós do tipo B
-            G.adicionar_aresta(origem, (destino+NumCidades-1), distancia);
+            G.adicionar_aresta(origem, (destino+NumCidades), distancia);
             //Nós do Tipo B se ligam à Nós do tipo A
-            G.adicionar_aresta((origem+NumCidades-1), destino, distancia);
+            G.adicionar_aresta((origem+NumCidades), destino, distancia);
 
         }
 

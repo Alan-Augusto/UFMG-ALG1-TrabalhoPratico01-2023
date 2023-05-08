@@ -15,7 +15,7 @@ void Grafo::adicionar_aresta(int u, int v, int peso) {
 void Grafo::print(){
     for(int i = 0; i < V/2; i++){
         cout << "Vértice " << i << endl;
-        for(int j = 0; j < adj[i].size(); j++){
+        for(int j = 0; j < (int) adj[i].size(); j++){
             cout << adj[i][j].first << " " << adj[i][j].second << " ";
             cout << endl;
         }
