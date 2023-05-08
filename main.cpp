@@ -25,44 +25,46 @@ void Assert(bool x, string text){
 }
 
 
-int main(int argc, char  **argv) {
-    
-    //Recolhe endereço do arquivo e confere os argumentos:
-    char inputNameArq []= "./test_cases/inputs/test_case1.txt";
-    
-    //Variaveis principais
-    ifstream InputFile(inputNameArq);
-    Assert(InputFile.is_open(), "Opening error in input file");
-    
-    
+int main(int argc, char** argv) {
 
     int NumCidades;
     int NumEstradas;
     
     //Lendo os dados do arquivo
-    InputFile >> NumCidades;
-    InputFile >> NumEstradas;
+    cin >> NumCidades;
+    cin >> NumEstradas;
     
     Grafo G = Grafo(2*NumCidades);
 
-    cout << NumCidades << " e " << NumEstradas << endl;
+    //cout << NumCidades << " e " << NumEstradas << endl;
 
     for (int i=0; i< NumEstradas; i++){
         int origem;
         int destino;
         int distancia;
 
-        InputFile >> origem;
-        InputFile >> destino;
-        InputFile >> distancia;
+        cin >> origem;
+        cin >> destino;
+        cin >> distancia;
 
-        G.adicionar_aresta(origem, destino, distancia);
+        if((distancia %2) == 0){ //Adiciona somente as arestas pares
+            //Nós do Tipo A se ligam à Nós do tipo B
+            G.adicionar_aresta(origem, (destino+NumCidades-1), distancia);
+            //Nós do Tipo B se ligam à Nós do tipo A
+            G.adicionar_aresta((origem+NumCidades-1), destino, distancia);
+
+        }
 
     }
-    G.print();
+    //G.print();
 
-    cout << "Distancias minimas do vertice 1 até a última cidade" << endl;
+    //cout << "Distancias minimas do vertice 1 até a última cidade" << endl;
     vector<int> MenorCaminho = G.dijkstra(1); //Obtem o menor caminho até todas as estradas partindo de "1"
-    cout << MenorCaminho[NumCidades] << endl; //Imprime o menor caminho até a última cidade
+    if(MenorCaminho[NumCidades] == INF){
+        cout << -1 << endl;
+    }
+    else{
+        cout << MenorCaminho[NumCidades] << endl; //Imprime o menor caminho até a última cidade
+    }
 
 }
