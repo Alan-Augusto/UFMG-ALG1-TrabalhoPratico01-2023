@@ -10,20 +10,26 @@ using namespace std;
 
 #define INF 0x3f3f3f3f
 
-class Grafo {
+class Graph {
     private:
         // número de vértices
         int V; 
+        
         // lista de adjacência
         vector<vector<pair<int, int>>> adj; 
         
     public:
-        Grafo(int V);
+        //Construtor
+        Graph(int V);
 
-        void adicionar_aresta(int u, int v, int peso);
+        //Adicionar aresta
+        void add_edge(int u, int v, int distance);
+        
+        //Printar grafo para controle interno de desenvolvimento
         void print();
 
-        vector<int> dijkstra(int origem);
+        //Algoritmo djikstra para encontrar o menor caminho de uma origem qualquer até os demais vértices do grafo
+        vector<int> dijkstra(int origin);
 };
 
 #endif

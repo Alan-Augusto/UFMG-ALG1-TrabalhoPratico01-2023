@@ -7,64 +7,56 @@
 
 using namespace std;
 
-//ler a linha de comando
-char* checkLineArguments(int argc, char **argv, int x){
-    return argv[x];
-}
-
-
-void Assert(bool x, string text){
-    if(!x){
-        if(text == ""){
-            cout << text;
-            exit(0);
-        }
-        cout << text << endl;
-        exit(0);
-    }
-}
-
 
 int main(int argc, char** argv) {
 
-    int NumCidades;
-    int NumEstradas;
+    //Declaração das variáveis iniciais de entrada
+    int NumCities;
+    int NumRoads;
     
-    //Lendo os dados do arquivo
-    cin >> NumCidades;
-    cin >> NumEstradas;
+    //Leitura dos dados inicias do problema
+    cin >> NumCities;
+    cin >> NumRoads;
     
-    Grafo G = Grafo(2*NumCidades+1);
+    //Declaração do Graph
+    Graph G = Graph(2*NumCities+1);
+        //Deve conter 2 vezes o número de cidades pois os vértices são duplicados
+        //para que o problema da quantdiade par de estradas seja resolvida.
 
-    //cout << NumCidades << " e " << NumEstradas << endl;
+    
+    for (int i=0; i< NumRoads; i++){ //Para cada uma das estradas recebidas
+        
+        int origin;     //Recebe a cidade de origem
+        cin >> origin;
+        
+        int destiny;    //Recebe a cidade de destino
+        cin >> destiny;
+        
+        int distance;   //Recebe o comprimento da estrada
+        cin >> distance;
 
-    for (int i=0; i< NumEstradas; i++){
-        int origem;
-        int destino;
-        int distancia;
+        if((distance %2) == 0){ //Somente se o comprimento da estada for par
+            
+            //Liga uma cidade à outra seguindo a regra do Graph bipartido:
 
-        cin >> origem;
-        cin >> destino;
-        cin >> distancia;
-
-        if((distancia %2) == 0){ //Adiciona somente as arestas pares
-            //Nós do Tipo A se ligam à Nós do tipo B
-            G.adicionar_aresta(origem, (destino+NumCidades), distancia);
-            //Nós do Tipo B se ligam à Nós do tipo A
-            G.adicionar_aresta((origem+NumCidades), destino, distancia);
+                //Nós do Tipo A se ligam à Nós do tipo B
+                G.add_edge(origin, (destiny+NumCities), distance);
+                //Nós do Tipo B se ligam à Nós do tipo A
+                G.add_edge((origin+NumCities), destiny, distance);
 
         }
 
     }
-    //G.print();
-
-    //cout << "Distancias minimas do vertice 1 até a última cidade" << endl;
-    vector<int> MenorCaminho = G.dijkstra(1); //Obtem o menor caminho até todas as estradas partindo de "1"
-    if(MenorCaminho[NumCidades] == INF){
-        cout << -1 << endl;
+    
+    //Cria um vetor com o menor caminho disponível até todas as cidades, saindo da cidade 1. -> Usando Dijkstra
+    vector<int> MenorCaminho = G.dijkstra(1); 
+    
+    //Estamos buscando o menor caminho VÁLIDO até a última cidade -> MenorCaminho[NumCities]
+    if(MenorCaminho[NumCities] == INF){ //Se esse comprimento for infinito, significa que não existe um caminho VÁLIDO.
+        cout << -1 << endl; //Nesse caso, imprime apenas "-1"
     }
     else{
-        cout << MenorCaminho[NumCidades] << endl; //Imprime o menor caminho até a última cidade
+        cout << MenorCaminho[NumCities] << endl; //Imprime o menor caminho até a última cidade
     }
 
 }
